@@ -20,5 +20,5 @@
 * Можно ставить лайки на все карточки и удалять их, а также добавлять новые.
 
 ### Ресурсы на проект по GitHub Pages:
-* [Ссылка на проект](https://villagemc.github.io/four-sprint/index.html)
-* [Ссылка на репозиторий](https://github.com/villagemc/four-sprint)
+* [Ссылка на проект](https://villagemc.github.io/mesto/index.html)
+* [Ссылка на репозиторий](https://github.com/villagemc/mesto)
