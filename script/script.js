@@ -111,7 +111,7 @@ const initialCards = [
 
 // Создание 6 карточек:
 initialCards.forEach((e) => {
-  return createCard(e.name, e.link);
+  prependCard(e.name, e.link)
 });
 
 function createCard(name, link) {
@@ -144,18 +144,23 @@ function createCard(name, link) {
     popupParagraph.textContent = titleTemplate.textContent;
   }
 
-  elements.prepend(templateClone);
-
   imgTemplate.addEventListener('click', clickOpenModalTempImage);
+
+  return templateClone;
+}
+
+// Функция добавления карточки:
+function prependCard(name, link) {
+  const card = createCard(name, link);
+  elements.prepend(card);
 }
 
 // Обработчик «отправки» формы:
 function handleElementFormSubmit (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  createCard(nameSrcInput.value, hrefSrcInput.value);
-
-  // elements.prepend(cardElement)
+  prependCard(nameSrcInput.value, hrefSrcInput.value)
+  
   clickClosedModalTo();
 
   nameSrcInput.value = '';

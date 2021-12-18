@@ -23,6 +23,6 @@
 	}
 }
 
-.popup_open {
-	animation: dem 1s linear;
+.popup {
+	animation: dem 0.2s linear;
 }
