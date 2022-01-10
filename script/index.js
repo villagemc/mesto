@@ -15,6 +15,8 @@ popupAll.forEach((popups) => {
   });
 });
 
+// [!] Ниже ничего не менялось, остальное в validate.js
+
 // Открытие модального окна:
 const profileEdit = document.querySelector('.profile__button-edit');
 const popupClosedEdit = document.querySelector('.popup__closed_modal_edit');
