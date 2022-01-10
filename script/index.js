@@ -111,7 +111,7 @@ const initialCards = [
 
 // Создание 6 карточек:
 initialCards.forEach((e) => {
-  prependCard(e.name, e.link)
+  prependCard(e.name, e.link);
 });
 
 function createCard(name, link) {
@@ -159,7 +159,7 @@ function prependCard(name, link) {
 function handleElementFormSubmit (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  prependCard(nameSrcInput.value, hrefSrcInput.value)
+  prependCard(nameSrcInput.value, hrefSrcInput.value);
   
   clickClosedModalTo();
 
@@ -175,5 +175,3 @@ function clickClosedModalImage() {
 }
 
 popupCloseImage.addEventListener('click', clickClosedModalImage);
-
-console.log(initialCards)
