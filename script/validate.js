@@ -1,4 +1,4 @@
-// Клик вне попапа или по ESC:
+// Закрытие модального окна кликом по оверлею
 const popupAll = document.querySelectorAll('.popup');
 
 popupAll.forEach((popups) => {
@@ -8,6 +8,7 @@ popupAll.forEach((popups) => {
     }
   });
 
+// Закрытие модального окна нажатием "ESC"
   popups.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       closePopup(popups);
@@ -18,37 +19,36 @@ popupAll.forEach((popups) => {
 // Валидация форм:
 
 // Форма не валидна:
-function showInputError(formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(`.popup__input-error`);
-  inputElement.classList.add('popup__input_type_error');
+function showInputError(formElement, inputElement, errorMessage, list) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add(list.inputErrorClass);
   errorElement.textContent = errorMessage;
 };
 
 // Форма валидна:
-function hideInputError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(`.popup__input-error`);
-  inputElement.classList.remove('popup__input_type_error');
+function hideInputError(formElement, inputElement, list) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove(list.inputErrorClass);
   errorElement.textContent = '';
 };
 
 // Проверка валидности формы:
-function checkInputValidity (formElement, inputElement) {
+function checkInputValidity (formElement, inputElement, list) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, list);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, list);
   }
 };
 
 // Исходя из условий применяются те или ины стили:
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('.popup__button');
-  toggleButtonState(inputList, buttonElement);
+function setEventListeners(formElement, list) {
+  const inputList = Array.from(formElement.querySelectorAll(list.inputSelector));
+  const buttonElement = formElement.querySelector(list.submitButtonSelector);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+      checkInputValidity(formElement, inputElement, list);
+      toggleButtonState(inputList, buttonElement, list);
     });
   });
 };
@@ -60,25 +60,25 @@ function hasInvalidInput(inputList) {
   });
 }
 
-// Применяемые стили для SUBMIT в зависимости от условия:
-function toggleButtonState(inputList, buttonElement) {
+// Применяемые стили для SUBMIT в зависимости от условий:
+function toggleButtonState(inputList, buttonElement, list) {
   if (hasInvalidInput(inputList)) {
     buttonElement.setAttribute('disabled', true);
-    buttonElement.classList.add('popup__button_inactive');
+    buttonElement.classList.add(list.inactiveButtonClass);
   } else {
     buttonElement.removeAttribute('disabled');
-    buttonElement.classList.remove('popup__button_inactive');
+    buttonElement.classList.remove(list.inactiveButtonClass);
   }
 }
 
 // Отправка формы:
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
+function enableValidation(list) {
+  const formList = Array.from(document.querySelectorAll(list.formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
       evt.preventDefault();
     });
-    setEventListeners(formElement); 
+    setEventListeners(formElement, list); 
   });
 };
 

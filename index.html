@@ -56,24 +56,26 @@
 						<h2 class="popup__title">Редактировать профиль</h2>
 						<fieldset class="popup__item">
 							<input class="popup__input popup__input_text_name"
+										 id="name"
 										 placeholder="Введите имя ученого"
 										 type="text" 
-										 name="firstName"
+										 name="name"
 										 minlength="2"
 										 maxlength="40"
 										 required>
-							<span class="popup__input-error"></span>
+							<span class="popup__input-error name-error"></span>
 							<input class="popup__input popup__input_text_job"
+										 id="job"
 										 placeholder="Введите профессию учёного"
 										 type="text" 
 										 name="job"
 										 minlength="2"
 										 maxlength="200"
 										 required>
-							<span class='popup__input-error'></span>
+							<span class='popup__input-error job-error'></span>
 						</fieldset>
 					</div>
-					<button class="popup__button popup__button_submit_edit" type="submit" disabled>Сохранить</button>
+					<button class="popup__button popup__button_submit_edit" type="submit">Сохранить</button>
 				</form>
 			</div>
 		</div>
@@ -86,22 +88,24 @@
 						<h2 class="popup__title">Новое место</h2>
 						<fieldset class="popup__item">
 							<input class="popup__input popup__input_text_nameCard"
+										 id="nameCard"
 										 placeholder="Название"
 										 type="text" 
 										 name="nameCard"
 										 minlength="2"
 										 maxlength="30"
 										 required>
-							<span class='popup__input-error'></span>
+							<span class='popup__input-error nameCard-error'></span>
 							<input class="popup__input popup__input_text_hrefCard"
+										 id="linkCard"
 										 placeholder="Ссылка на картинку"
 										 type="url" 
 										 name="linkCard"
 										 required>
-							<span class='popup__input-error'></span>
+							<span class='popup__input-error linkCard-error'></span>
 						</fieldset>
 					</div>
-					<button class="popup__button popup__button_submit_add" type="submit" disabled>Сохранить</button>
+					<button class="popup__button popup__button_submit_add popup__button_inactive" type="submit" disabled>Сохранить</button>
 				</form>
 			</div>
 		</div>
