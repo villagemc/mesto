@@ -1,3 +1,20 @@
+const popupAll = document.querySelectorAll('.popup');
+
+popupAll.forEach((popups) => {
+  // Закрытие модального окна кликом по оверлею:
+  popups.addEventListener('click', (evt) => {
+    if (evt.target === popups) {
+      closePopup(popups);
+    }
+  });
+  // Закрытие модального окна клавишей ESC:
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup(popups);
+    };
+  });
+});
+
 // Открытие модального окна:
 const profileEdit = document.querySelector('.profile__button-edit');
 const popupClosedEdit = document.querySelector('.popup__closed_modal_edit');

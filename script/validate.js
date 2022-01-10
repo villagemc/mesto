@@ -1,21 +1,3 @@
-// Закрытие модального окна кликом по оверлею
-const popupAll = document.querySelectorAll('.popup');
-
-popupAll.forEach((popups) => {
-  popups.addEventListener('click', (evt) => {
-    if (evt.target === popups) {
-      closePopup(popups);
-    }
-  });
-
-// Закрытие модального окна нажатием "ESC"
-  popups.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closePopup(popups);
-    }
-  });
-});
-
 // Валидация форм:
 
 // Форма не валидна:
