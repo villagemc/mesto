@@ -24,7 +24,6 @@ const jobText = document.querySelector('.profile__text');
 const elements = document.querySelector('.elements');
 const nameSrcInput = document.querySelector('.popup__input_text_nameCard');
 const hrefSrcInput = document.querySelector('.popup__input_text_hrefCard');
-const popupButtonAdd = document.querySelector('.popup__button_submit_add');
 const popupImage = document.querySelector('.popup_modal_img');
 const popupCloseImage = document.querySelector('.popup__closed_modal_img');
 

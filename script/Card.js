@@ -26,18 +26,16 @@ class Card {
 		this._setEventListeners();
 
 		this._elementTitle = this._element.querySelector('.element__title');
-		this._elementImage = this._element.querySelector('.element__image');
 
 		this._elementTitle.textContent = this._title;
 		this._elementImage.src = this._image;
-		this._elementImage.alt = this._elementTitle.textContent;
+		this._elementImage.alt = this._title;
 
 		return this._element;
 	}
 
 	// Действия по щелчку:
 	_setEventListeners() {
-		this._elementTitle = this._element.querySelector('.element__title');
 		this._elementImage = this._element.querySelector('.element__image');
 
 		// Добавление лайков:
@@ -54,8 +52,9 @@ class Card {
 		this._elementImage.addEventListener('click', () => {
 			openPopup(popupImage);
 			
-    	document.querySelector('.popup__image').src = this._image;
-    	document.querySelector('.popup__image').alt = this._title;
+			this._imagePreview = popupImage.querySelector('.popup__image');
+    	this._imagePreview.src = this._image;
+    	this._imagePreview.alt = this._title;
     	document.querySelector('.popup__paragraph').textContent = this._title;
 		});
 	}
