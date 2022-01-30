@@ -40,6 +40,14 @@ class FormValidator {
     }
   }
 
+  // Очистка формы:
+  resetValidation() {
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+    this._toggleButtonState();
+  }
+
   // Проверка валидности формы:
   _checkInputValidity (inputElement) {
     if (!inputElement.validity.valid) {

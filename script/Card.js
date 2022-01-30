@@ -25,15 +25,21 @@ class Card {
 		this._element = this._getTemplate();
 		this._setEventListeners();
 
-		this._element.querySelector('.element__title').textContent = this._title;
-		this._element.querySelector('.element__image').src = this._image;
-		this._element.querySelector('.element__image').alt = this._element.querySelector('.element__title').textContent;
+		this._elementTitle = this._element.querySelector('.element__title');
+		this._elementImage = this._element.querySelector('.element__image');
+
+		this._elementTitle.textContent = this._title;
+		this._elementImage.src = this._image;
+		this._elementImage.alt = this._elementTitle.textContent;
 
 		return this._element;
 	}
 
 	// Действия по щелчку:
 	_setEventListeners() {
+		this._elementTitle = this._element.querySelector('.element__title');
+		this._elementImage = this._element.querySelector('.element__image');
+
 		// Добавление лайков:
 		this._element.querySelector('.element__like').addEventListener('click', (evt) => {
 			evt.target.classList.toggle('element__like_black');
@@ -41,16 +47,16 @@ class Card {
 
 		// Удаление карточки:
 		this._element.querySelector('.element__delete').addEventListener('click', (evt) => {
-			evt.currentTarget.closest('.element').remove();
+			this._element.remove();
 		});
 
 		// Открытие попапа:
-		this._element.querySelector('.element__image').addEventListener('click', () => {
+		this._elementImage.addEventListener('click', () => {
 			openPopup(popupImage);
 			
-    	document.querySelector('.popup__image').src = this._element.querySelector('.element__image').src;
-    	document.querySelector('.popup__image').alt = this._element.querySelector('.element__title').textContent;
-    	document.querySelector('.popup__paragraph').textContent = this._element.querySelector('.element__title').textContent;
+    	document.querySelector('.popup__image').src = this._elementImage.src;
+    	document.querySelector('.popup__image').alt = this._elementTitle.textContent;
+    	document.querySelector('.popup__paragraph').textContent = this._elementTitle.textContent;
 		});
 	}
 }

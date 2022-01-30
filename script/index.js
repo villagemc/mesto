@@ -1,33 +1,6 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
-
-// Создание массива для карточек:
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+import { initialCards } from './InitialCards.js';
 
 // Все модальные окна:
 const popupAll = Array.from(document.querySelectorAll('.popup'));
@@ -45,7 +18,6 @@ const formElementEdit = document.querySelector('.popup__form_submit_edit');
 const formElementAdd = document.querySelector('.popup__form_submit_add');
 const nameInput = document.querySelector('.popup__input_text_name');
 const jobInput = document.querySelector('.popup__input_text_job');
-const popupButtonEdit = document.querySelector('.popup__button_submit_edit');
 const nameText = document.querySelector('.profile__title');
 const jobText = document.querySelector('.profile__text');
 // Работа с формой и темплейтом:
@@ -82,16 +54,21 @@ function openPopup(popup) {
 
 // Открытие edit-окна:
 function clickOpenModal() {
-  openPopup(popupEdit);
-
+  // Вставка данных в поля Edit:
   nameInput.value = nameText.textContent;
   jobInput.value = jobText.textContent;
+
+  formValidators[formElementEdit.name].resetValidation();
+
+  openPopup(popupEdit);
 }
 
 profileEdit.addEventListener('click', clickOpenModal);
 
 // Открытие add-окна:
 function clickOpenModalTo() {
+  formValidators[formElementAdd.name].resetValidation();
+
   openPopup(popupAdd);
 }
 
@@ -154,7 +131,11 @@ function handleProfileFormSubmit (evt) {
 formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 
 initialCards.forEach((item) => {
-	prependCard(item);
+  const card = new Card(item, '.template-element');
+  const cardElement = card.generateCard();
+
+  // Добавляем в DOM
+  elements.prepend(cardElement);
 });
 
 // Функция добавления карточки:
@@ -178,11 +159,8 @@ function handleElementFormSubmit (evt) {
   
   clickClosedModalTo();
 
-  nameSrcInput.value = '';
-  hrefSrcInput.value = '';
-
-	popupButtonAdd.setAttribute('disabled', true);
-	popupButtonAdd.classList.add('popup__button_inactive');
+  // Очистка формы после добавления карточки:
+  formElementAdd.reset();
 }
 
 formElementAdd.addEventListener('submit', handleElementFormSubmit);
