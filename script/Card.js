@@ -46,7 +46,7 @@ class Card {
 		});
 
 		// Удаление карточки:
-		this._element.querySelector('.element__delete').addEventListener('click', (evt) => {
+		this._element.querySelector('.element__delete').addEventListener('click', () => {
 			this._element.remove();
 		});
 
@@ -54,9 +54,9 @@ class Card {
 		this._elementImage.addEventListener('click', () => {
 			openPopup(popupImage);
 			
-    	document.querySelector('.popup__image').src = this._elementImage.src;
-    	document.querySelector('.popup__image').alt = this._elementTitle.textContent;
-    	document.querySelector('.popup__paragraph').textContent = this._elementTitle.textContent;
+    	document.querySelector('.popup__image').src = this._image;
+    	document.querySelector('.popup__image').alt = this._title;
+    	document.querySelector('.popup__paragraph').textContent = this._title;
 		});
 	}
 }

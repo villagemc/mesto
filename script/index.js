@@ -53,7 +53,7 @@ function openPopup(popup) {
 }
 
 // Открытие edit-окна:
-function clickOpenModal() {
+function clickOpenModalEditCard() {
   // Вставка данных в поля Edit:
   nameInput.value = nameText.textContent;
   jobInput.value = jobText.textContent;
@@ -63,16 +63,14 @@ function clickOpenModal() {
   openPopup(popupEdit);
 }
 
-profileEdit.addEventListener('click', clickOpenModal);
+profileEdit.addEventListener('click', clickOpenModalEditCard);
 
 // Открытие add-окна:
-function clickOpenModalTo() {
-  formValidators[formElementAdd.name].resetValidation();
-
+function clickOpenModalAddCard() {
   openPopup(popupAdd);
 }
 
-profileAdd.addEventListener('click', clickOpenModalTo);
+profileAdd.addEventListener('click', clickOpenModalAddCard);
 
 // Универсальное закрытие модального окна
 function closePopup(popup) {
@@ -81,18 +79,18 @@ function closePopup(popup) {
 }
 
 // Закрытие edit-окна:
-function clickClosedModal() {
+function clickClosedModalProfileEdit() {
 	closePopup(popupEdit);
 }
 
-popupClosedEdit.addEventListener('click', clickClosedModal);
+popupClosedEdit.addEventListener('click', clickClosedModalProfileEdit);
 
 // Закрытие add-окна:
-function clickClosedModalTo() {
+function clickClosedModalAddCard() {
   closePopup(popupAdd);
 }
 
-popupClosedAdd.addEventListener('click', clickClosedModalTo);
+popupClosedAdd.addEventListener('click', clickClosedModalAddCard);
 
 // Закрытие image-окна:
 function clickClosedModalImage() {
@@ -125,42 +123,41 @@ function handleProfileFormSubmit (evt) {
 	nameText.textContent = nameInput.value;
 	jobText.textContent = jobInput.value;
 
-	clickClosedModal();
+	clickClosedModalProfileEdit();
 }
 
 formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '.template-element');
-  const cardElement = card.generateCard();
-
-  // Добавляем в DOM
-  elements.prepend(cardElement);
+  elements.prepend(createCard(item));
 });
 
-// Функция добавления карточки:
-function prependCard(item) {
+// Функции добавления карточки:
+function createCard(item) {
   const card = new Card(item, '.template-element');
   const cardElement = card.generateCard();
 
-  // Добавляем в DOM
-  elements.prepend(cardElement);
+  return cardElement;
 }
 
+function renderCard(item) {
+ elements.prepend(createCard(item));
+}
 
 // Обработчик «отправки» формы:
 function handleElementFormSubmit (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  prependCard({
+  renderCard({
 		name: nameSrcInput.value, 
 		link: hrefSrcInput.value
 	});
   
-  clickClosedModalTo();
+  clickClosedModalAddCard();
 
   // Очистка формы после добавления карточки:
   formElementAdd.reset();
+  formValidators[formElementAdd.name].resetValidation();
 }
 
 formElementAdd.addEventListener('submit', handleElementFormSubmit);

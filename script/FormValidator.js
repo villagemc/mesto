@@ -45,12 +45,12 @@ class FormValidator {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
-    
+
     this._toggleButtonState();
   }
 
   // Проверка валидности формы:
-  _checkInputValidity (inputElement) {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement);
     } else {
