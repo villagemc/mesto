@@ -1,5 +1,5 @@
 // Валидация форм:
-class FormValidator {
+export default class FormValidator {
   constructor(list, formSelector) {
     this._formSelector = formSelector;
     this._inputSelector = list.inputSelector;
@@ -76,5 +76,3 @@ class FormValidator {
   }
 
 }
-
-export { FormValidator };
