@@ -1,5 +1,4 @@
 import { popupImage } from '../utils/constants.js';
-import Popup from './Popup.js';
 
 // Класс по созданию карточки:
 export default class Card {
@@ -54,14 +53,12 @@ export default class Card {
 		// Открытие попапа:
 		this._elementImage.addEventListener('click', () => {
 			this._handleCardClick(this._title, this._image);
-			this._popup = new Popup('.popup_modal_img');
-			this._popup.open(popupImage);
 
 			// Передаем данные в открывшийся попап:
 			this._imagePreview = popupImage.querySelector('.popup__image');
     	this._imagePreview.src = this._image;
     	this._imagePreview.alt = this._title;
-    	document.querySelector('.popup__paragraph').textContent = this._title;
+    	popupImage.querySelector('.popup__paragraph').textContent = this._title;
 		});
 	}
 }

@@ -5,10 +5,10 @@ import {
   profileAdd,
   formList,
   formElementEdit,
-  nameInput,
-  jobInput,
   nameSrcInput,
   hrefSrcInput,
+  nameInput,
+  jobInput,
   setValidation,
   formValidators,
   formElementAdd
@@ -20,23 +20,24 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
-// Функция добавления карточки:
-function createCard(name, link, templateSelector) {
-  const card = new Card(
-    {
-      name: name,
-      link: link
-    },
-    templateSelector, () => {
-      popupWithImage.open(name, link);
-    }
-  );
-
-  const cardElement = card.generateCard();
-  return cardElement;
-}
-
 // Универсальный класс Section для отрисовки карточек на странице:
+
+// Функция добавления карточки: 
+function createCard(name, link, templateSelector) {
+  const card = new Card( 
+    { 
+      name: name, 
+      link: link 
+    }, 
+    templateSelector, () => { 
+      popupWithImage.open(name, link); 
+    } 
+  ); 
+  const cardElement = card.generateCard(); 
+  return cardElement; 
+} 
+
+// Универсальный класс Section для отрисовки карточек на странице: 
 const section = new Section(
   {
     items: initialCards,
@@ -62,26 +63,18 @@ const userInfo = new UserInfo({
 
 // Данные профиля:
 const popupEdit = new PopupWithForm(
-  '.popup__form_submit_edit', '.popup_modal_edit', (evt) => {
-    // Сброс стандартных настроек (без перезагрузки):
-    evt.preventDefault();
-    // Вставляем данные:
+  '.popup_modal_edit', () => {
     userInfo.setUserInfo(
       nameInput.value, 
       jobInput.value
     );
-    // Закрытие попапа:
-    popupEdit.close();
   }
 )
 popupEdit.setEventListeners();
 
 // Данные карточки:
 const popupAdd = new PopupWithForm(
-  '.popup__form_submit_add', '.popup_modal_add', (evt) => {
-    // Сброс стандартных настроек (без перезагрузки):
-    evt.preventDefault();
-    // Вставляем данные:
+  '.popup_modal_add', () => {
     section.addItem(
       createCard(
         nameSrcInput.value, 
@@ -89,8 +82,6 @@ const popupAdd = new PopupWithForm(
         '.template-element'
       )
     );
-    // Закрытие попапа:
-    popupAdd.close();
   }
 )
 popupAdd.setEventListeners();
@@ -107,8 +98,8 @@ formList.forEach((forms) => {
 profileEdit.addEventListener('click', () => {
   // Вставка данных в поля Edit:
   const item = userInfo.getUserInfo();
-  nameInput.value = item.names;
-  jobInput.value = item.infos;
+  nameInput.value = item.name;
+  jobInput.value = item.info;
 
   formValidators[formElementEdit.name].resetValidation();
 

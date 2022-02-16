@@ -7,8 +7,8 @@ export default class Section {
 	}
 
 	// Принимает DOM-элемент и добавляет его в контейнер:
-	addItem(element) {
-		this._container.prepend(element);
+	addItem(item) {
+		this._container.prepend(item);
 	}
 
 	// Отрисовка всех элементов в DOM:
