@@ -20,8 +20,6 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
-// Универсальный класс Section для отрисовки карточек на странице:
-
 // Функция добавления карточки: 
 function createCard(name, link, templateSelector) {
   const card = new Card( 
@@ -68,6 +66,8 @@ const popupEdit = new PopupWithForm(
       nameInput.value, 
       jobInput.value
     );
+    // Закрытие попапа:
+		popupEdit.close();
   }
 )
 popupEdit.setEventListeners();
@@ -77,11 +77,13 @@ const popupAdd = new PopupWithForm(
   '.popup_modal_add', () => {
     section.addItem(
       createCard(
-        nameSrcInput.value, 
-        hrefSrcInput.value, 
+        nameSrcInput.value,
+        hrefSrcInput.value,
         '.template-element'
       )
     );
+    // Закрытие попапа:
+		popupAdd.close();
   }
 )
 popupAdd.setEventListeners();

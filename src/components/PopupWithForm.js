@@ -28,8 +28,6 @@ export default class PopupWithForm extends Popup {
 			evt.preventDefault();
 			// Подставляем значения:
 			this._submitform(this._getInputValues());
-			// Закрытие попапа:
-			this.close();
 		});
 	}
 

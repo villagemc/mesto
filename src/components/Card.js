@@ -1,13 +1,11 @@
-import { popupImage } from '../utils/constants.js';
-
 // Класс по созданию карточки:
 export default class Card {
 	// Конструктор с данными:
 	constructor(data, cardSelector, handleCardClick) {
-		this._cardSelector = cardSelector;
-		this._handleCardClick = handleCardClick;
 		this._title = data.name;
 		this._image = data.link;
+		this._cardSelector = cardSelector;
+		this._handleCardClick = handleCardClick;
 	}
 
 	// Создание темплейт-карточки:
@@ -40,7 +38,13 @@ export default class Card {
 	}
 
 	// Действия по щелчку:
-	_setEventListeners() {// Добавление лайков:
+	_setEventListeners() {
+		// Открытие попапа:
+		this._elementImage.addEventListener('click', () => {
+			this._handleCardClick(this._image, this._title);
+		});
+
+		// Добавление лайков:
 		this._elementLike.addEventListener('click', (evt) => {
 			evt.target.classList.toggle('element__like_black');
 		});
@@ -48,17 +52,7 @@ export default class Card {
 		// Удаление карточки:
 		this._elementDelete.addEventListener('click', () => {
 			this._element.remove();
-		});
-
-		// Открытие попапа:
-		this._elementImage.addEventListener('click', () => {
-			this._handleCardClick(this._title, this._image);
-
-			// Передаем данные в открывшийся попап:
-			this._imagePreview = popupImage.querySelector('.popup__image');
-    	this._imagePreview.src = this._image;
-    	this._imagePreview.alt = this._title;
-    	popupImage.querySelector('.popup__paragraph').textContent = this._title;
+			this._element = null;
 		});
 	}
 }
