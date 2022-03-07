@@ -1,41 +1,39 @@
-// Открытие и закрытие попапа:
+// Класс по работе с попапоми:
 export default class Popup {
-	constructor(popupSelector) {
-		this._popup = document.querySelector(popupSelector);
-		this._handleEscClose = this._handleEscClose.bind(this);
-	}
+  constructor(popupSelector) {
+    this._popup = document.querySelector(popupSelector);
+    this._handleEscapeKey = this._handleEscapeKey.bind(this);
+  }
 
-	// Универсальное открытие попапа:
-	open() {
-		this._popup.classList.add('popup_opened');
-		document.addEventListener('keydown',  this._handleEscClose);
-	}
+  // Открытие карточки:
+  open() {
+    this._popup.classList.add('popup_opened');
+    document.addEventListener('keydown', this._handleEscapeKey);
+  }
 
-	// Универсальное закрытие попапа:
-	close() {
-		document.removeEventListener('keydown',  this._handleEscClose);
-		this._popup.classList.remove('popup_opened');
-	}
+  // Закрытие карточки:
+  close() {
+    document.removeEventListener('keydown', this._handleEscapeKey);
+    this._popup.classList.remove('popup_opened');
+  }
 
-	// Закрытие попапа клавишей ESC:
-	_handleEscClose(evt) {
-		if (evt.key === 'Escape') {
-			this.close();
-		}
-	}
+  // Закрытие карточки клавишей Esc:
+  _handleEscapeKey(evt) {
+    if (evt.key === 'Escape') this.close();
+  }
 
-	// Закрытие попапов:
-	setEventListeners() {
-		// Клик по крестику:
-		this._popupClose = this._popup.querySelector('.popup__closed');
-		this._popupClose.addEventListener('click', () => {
-			this.close()
-		});
-		// Клик по оверлею:
-		this._popup.addEventListener('click', (evt) => {
-			if (evt.target.classList.contains('popup')) {
-				this.close();
-			}
-		});
-	}
+  setEventListeners() {
+    // Клик по крестику - закрытие попапа:
+    const buttonClosed = this._popup.querySelector('.popup__closed');
+    buttonClosed.addEventListener('click', () => {
+      this.close()
+    });
+    
+    // Закрытие по оверлею:
+    this._popup.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup')) {
+        this.close();
+      }
+    });
+  }
 }

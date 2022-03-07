@@ -1,20 +1,23 @@
-// Отрисовка элементов на странице:
+// Универсальный класс по созданию карточек:
 export default class Section {
-	constructor({items, renderer}, containerSelector) {
-		this._rendererItems = items;
-    this._renderer = renderer;
-    this._container = document.querySelector(containerSelector);
-	}
+  constructor({render}, selector) {
+    this._render = render;
+    this._container = document.querySelector(selector);
+  }
 
-	// Принимает DOM-элемент и добавляет его в контейнер:
-	addItem(item) {
-		this._container.prepend(item);
-	}
+  // Добавление карточек:
+  addItem(item, mesto = 'default') {
+    if (mesto != 'default') {
+      this._container.prepend(item);
+    } else {
+      this._container.append(item);
+    }
+  }
 
-	// Отрисовка всех элементов в DOM:
-	rendererItems() {
-		this._rendererItems.forEach((item) => {
-      this._renderer(item);
-    });
-	}
+  // Рендер карточек:
+  renderItems(data) {
+    data.forEach((item) => {
+      this._render(item);
+    })
+  }
 }

@@ -1,19 +1,27 @@
-// Управление отображением информации о пользователе на странице:
+// Класс по работе с профилем и аватром:
 export default class UserInfo {
-	constructor(item) {
-		this._name = document.querySelector(item.userName);
-		this._info = document.querySelector(item.userInfo);
-	}
+  constructor(data) {
+    this._userName = document.querySelector(data.userName);
+    this._userInfo = document.querySelector(data.userJob);
+    this._userAvatar = document.querySelector(data.userAvatar);
+  }
 
-	getUserInfo() {
-		return {
-			name: this._name.textContent,
-			info: this._info.textContent,
-		}	
-	}
+  getUserInfo() {
+    return {
+      userName: this._userName.textContent,
+      userDescription: this._userInfo.textContent,
+      id: this.id,
+      avatar: this._userAvatar,
+    };
+  }
 
-	setUserInfo(name, info) {
-		this._name.textContent = name;
-    this._info.textContent = info;
-	}
+  setUserInfo(name, description, userId) {
+    this._userName.textContent = name;
+    this._userInfo.textContent = description;
+    this.id = userId;
+  }
+
+  updateUserAvatar(link) {
+    this._userAvatar.src = link;
+  }
 }

@@ -18,7 +18,7 @@
       <!-- Секция с профилем -->
       <section class="profile">
         <div class="profile__place">
-          <img src="<%=require('./images/Jak-Iv.jpg')%>" 	class="profile__image" alt="Аватарка Жак-Ив кусто">
+            <div class="profile__image"></div>
           <div class="profile__info">
             <div class="profile__edit">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -34,7 +34,7 @@
     </main>
     <!-- Подвал сайта -->
     <footer class="footer">
-      <p class="footer__copyright">&#169; 2021 Mesto Russia</p>
+      <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
     </footer>
     <!-- Создание карточки -->
     <template class="template-element">
@@ -43,7 +43,10 @@
         <button class="element__delete" type="button"></button>
         <div class="element__text">
           <h2 class="element__title"></h2>
-          <button type="button" class="element__like"></button>
+          <div class="element__container">
+            <button type="button" class="element__like"></button>
+            <span class="element__count">0</span>
+          </div>
         </div>
       </div>
     </template>
@@ -58,7 +61,7 @@
               <input class="popup__input popup__input_text_name"
                      id="name"
                      placeholder="Введите имя ученого"
-                     type="text" 
+                     type="text"
                      name="name"
                      minlength="2"
                      maxlength="40"
@@ -67,7 +70,7 @@
               <input class="popup__input popup__input_text_job"
                      id="job"
                      placeholder="Введите профессию учёного"
-                     type="text" 
+                     type="text"
                      name="job"
                      minlength="2"
                      maxlength="200"
@@ -90,7 +93,7 @@
               <input class="popup__input popup__input_text_nameCard"
                      id="nameCard"
                      placeholder="Название"
-                     type="text" 
+                     type="text"
                      name="nameCard"
                      minlength="2"
                      maxlength="30"
@@ -99,7 +102,7 @@
               <input class="popup__input popup__input_text_hrefCard"
                      id="linkCard"
                      placeholder="Ссылка на картинку"
-                     type="url" 
+                     type="url"
                      name="linkCard"
                      required>
               <span class='popup__input-error linkCard-error'></span>
@@ -115,6 +118,39 @@
         <button type="button" class="popup__closed popup__closed_modal_img"></button>
         <img src="#" alt="" class="popup__image">
         <p class="popup__paragraph"></p>
+      </div>
+    </div>
+    <!-- Модальное окно на подтверждение удаления карточки -->
+    <div class="popup popup_modal_delete">
+      <div class="popup__container">
+        <button type="button" class="popup__closed popup__closed_modal_delete"></button>
+        <form class="popup__form popup__form_submit_delete" name="deleteModal" novalidate>
+          <div class="popup__content">
+            <h2 class="popup__title">Вы уверены?</h2>
+          </div>
+            <button class="popup__button popup__button_submit_delete" type="submit">Да</button>
+        </form>
+      </div>
+    </div>
+    <!-- Модальное окно по смене аватарки -->
+    <div class="popup popup_modal_avatar">
+      <div class="popup__container">
+        <button type="button" class="popup__closed popup__closed_modal_avatar"></button>
+        <form class="popup__form popup__form_submit_avatar" name="avatarModal" novalidate>
+          <div class="popup__content">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <fieldset class="popup__item">
+              <input class="popup__input popup__input_text_avatar"
+                     id="avatar"
+                     placeholder="Ссылка на картинку"
+                     type="url"
+                     name="avatar"
+                     required>
+              <span class='popup__input-error avatar-error'></span>
+            </fieldset>
+          </div>
+          <button class="popup__button popup__button_submit_avatar popup__button_inactive" type="submit" disabled>Сохранить</button>
+        </form>
       </div>
     </div>
   </div>

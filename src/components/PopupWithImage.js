@@ -1,20 +1,19 @@
-import Popup from './Popup.js';
+// Импорт класса Popup^
+import Popup from "./Popup.js";
 
-// Открытие картинок в попапе:
+// Класс по работе с открытой карточкой:
 export default class PopupWithImage extends Popup {
-	constructor(popupSelector) {
-		super(popupSelector);
-		this._popupTitle = this._popup.querySelector('.popup__paragraph');
-		this._popupImage = this._popup.querySelector('.popup__image');
-	}
+  constructor(popupSelector) {
+    super(popupSelector);
+    this._cardLink = this._popup.querySelector('.popup__image');
+    this._cardTitle = this._popup.querySelector('.popup__paragraph');
+  }
 
-	// Вставляем данные для попапа с картинкой:
-	open(name, link) {
-		// Открытие попапа:
-		super.open();
-		// Вставка данных:
-		this._popupImage.src = link;
-		this._popupImage.alt = name;
-		this._popupTitle.textContent = name;
-	}
+  // Вставляем данные в открытую карточку:
+  open(name, link) {
+    super.open();
+    this._cardTitle.textContent = name;
+    this._cardLink.src = link;
+    this._cardLink.alt = name;
+  }
 }

@@ -1,58 +1,99 @@
-// Класс по созданию карточки:
 export default class Card {
-	// Конструктор с данными:
-	constructor(data, cardSelector, handleCardClick) {
-		this._title = data.name;
-		this._image = data.link;
-		this._cardSelector = cardSelector;
-		this._handleCardClick = handleCardClick;
-	}
-
-	// Создание темплейт-карточки:
-	_getTemplate() {
-    const cardElement = document
-      .querySelector(this._cardSelector)
-      .content
-      .querySelector('.element')
-      .cloneNode(true);
-
-    return cardElement;
+  constructor(data, cardSelector, id, api, popupWithConfirm, handleCardClick) {
+    this._title = data.name;
+    this._image = data.link;
+    this._likes = data.likes;
+    this._owner = data.owner;
+    this._cardId = data._id;
+    this._cardSelector = cardSelector;
+    this._myId = id;
+    this._api = api;
+    this._popupWithConfirm = popupWithConfirm;
+    this._handleCardClick = handleCardClick;
   }
 
-	// Ввод данных в карточку:
-	generateCard() {
-		this._element = this._getTemplate();
+  _getTemplate() {
+    const cardElemnt = document
+      .querySelector(this._cardSelector)
+      .content.querySelector('.element')
+      .cloneNode(true);
+    return cardElemnt;
+  }
 
-		this._elementImage = this._element.querySelector('.element__image');
-		this._elementTitle = this._element.querySelector('.element__title');
-		this._elementLike = this._element.querySelector('.element__like');
-		this._elementDelete = this._element.querySelector('.element__delete');
+  _like() {
+    if (!this._elementLike.classList.contains('element__like_black')) {
+      this._api
+        .putLike(this._cardId)
+        .then((res) => {
+          this._elementLike.classList.toggle('element__like_black');
+          this._elementCount.textContent = res.likes.length;
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    } else {
+      this._api
+        .deleteLike(this._cardId)
+        .then((res) => {
+          this._elementLike.classList.toggle('element__like_black');
+          this._elementCount.textContent = res.likes.length;
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
+  }
 
-		this._setEventListeners();
+  _removeCard(id) {
+    this._api
+      .deleteCard(id)
+      .then(() => {
+        this._element.remove();
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
 
-		this._elementTitle.textContent = this._title;
-		this._elementImage.src = this._image;
-		this._elementImage.alt = this._title;
+  generateCard() {
+    this._element = this._getTemplate();
+    this._elementImage = this._element.querySelector('.element__image');
+    this._elementLike = this._element.querySelector('.element__like');
+    this._elementDelete = this._element.querySelector('.element__delete');
+    this._elementTitle = this._element.querySelector('.element__title')
+    this._element._cardId = this._cardId;
 
-		return this._element;
-	}
+    if (this._owner._id !== this._myId) {
+      this._elementDelete.remove();
+    }
+    this._elementCount = this._element.querySelector('.element__count');
+    this._elementCount.textContent = this._likes.length;
 
-	// Действия по щелчку:
-	_setEventListeners() {
-		// Открытие попапа:
-		this._elementImage.addEventListener('click', () => {
-			this._handleCardClick(this._image, this._title);
-		});
+    this._likes.forEach((element) => {
+      if (element._id == this._myId) {
+        this._elementLike.classList.add('element__like_black');
+      }
+    });
 
-		// Добавление лайков:
-		this._elementLike.addEventListener('click', (evt) => {
-			evt.target.classList.toggle('element__like_black');
-		});
+    this._setEventListeners();
 
-		// Удаление карточки:
-		this._elementDelete.addEventListener('click', () => {
-			this._element.remove();
-			this._element = null;
-		});
-	}
+    this._elementTitle.textContent = this._title;
+    this._elementImage.src = this._image;
+    this._elementImage.alt = this._title;
+    return this._element;
+  }
+
+  _setEventListeners() {
+    this._elementImage.addEventListener('click', () => {
+      this._handleCardClick(this._title, this._image);
+    });
+
+    this._elementLike.addEventListener('click', () => {
+      this._like();
+    });
+
+    this._elementDelete.addEventListener('click', () => {
+      this._popupWithConfirm.open(this._element);
+    });
+  }
 }
