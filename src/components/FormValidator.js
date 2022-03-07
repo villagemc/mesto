@@ -12,15 +12,16 @@ export default class FormValidator {
 
   // Если невалидно, то:
   _showInputError(inputElement) {
-    this._errorElement = this._form.querySelector(`#${inputElement.id}-error`);
+    this._errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
     this._errorElement.textContent = inputElement.validationMessage;
   }
 
   // Если валидно, то:
   _hideInputError(inputElement) {
-    this._errorElement = this._form.querySelector(`#${inputElement.id}-error`);
+    this._errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
+    this._errorElement.textContent = '';
   }
 
   // Проверка валидности при открытии попапа:
