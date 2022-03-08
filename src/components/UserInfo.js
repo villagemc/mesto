@@ -22,6 +22,6 @@ export default class UserInfo {
   }
 
   updateUserAvatar(link) {
-    this._userAvatar.src = link;
+    this._userAvatar.style.backgroundImage = `url(${link})`;
   }
 }

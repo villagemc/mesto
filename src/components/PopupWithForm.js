@@ -11,6 +11,7 @@ export default class PopupWithForm extends Popup {
     this._inputListValues = {};
   }
 
+  // Проходим по всем полям:
   _getInputValues() {
     this._allInputs.forEach((element) => {
       this._inputListValues[element.id] = element.value;
@@ -18,6 +19,7 @@ export default class PopupWithForm extends Popup {
     return this._inputListValues;
   }
 
+  // При закрытии очищать форму:
   close() {
     super.close();
     this._popupForm.reset();

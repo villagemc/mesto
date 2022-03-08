@@ -9,6 +9,7 @@ export default class PopupWithConfirmDelete extends Popup {
     this._submitFunction = submitFunction;
   }
 
+  // Открытие попапа:
   open(card) {
     super.open();
     this._card = card;
